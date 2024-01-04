@@ -1,0 +1,116 @@
+﻿<Window x:Class="stromaddin.GUI.View.RtdDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mah="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:stromaddin.GUI.View"
+        xmlns:localcfg="clr-namespace:stromaddin.Config"
+        mc:Ignorable="d"
+        Title="Window1" Height="500" Width="600"
+        ShowInTaskbar="False"
+        DataContext="{Binding RelativeSource={RelativeSource Self}}">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <!-- MahApps.Metro resource dictionaries. Make sure that all file names are Case Sensitive! -->
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
+                <!-- Theme setting -->
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Themes/Light.Blue.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+    <Grid Margin="8">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="24"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="30"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="200"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <local:SearchBox x:Name="_symEditor" Grid.Row="0" Grid.Column="0" Margin="0, 0, 4, 2"
+                         LabelText="Symbol" Text="BTCUSDT" WatermarkText="Input one symbol"/>
+        <Grid Grid.Row="1" Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Label Grid.Row="0" Content="Indicators:"/>
+            <Border Grid.Row="1" BorderThickness="1" BorderBrush="Gray" CornerRadius="3">
+                <ListBox MouseDoubleClick="ListItem_MouseDoubleClick" ItemsSource="{Binding Indicators}"  Margin="0,1,0,1">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate DataType="{x:Type localcfg:RtdIndicator}">
+                            <Grid ToolTip="{Binding Description}">
+                                <TextBlock Text="{Binding Name}" HorizontalAlignment="Stretch" Margin="4, 0, 0, 0"/>
+                            </Grid>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </Border>
+        </Grid>
+        <Grid Grid.Row="1" Grid.Column="1" Margin="8,0, 0, 0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Label Grid.Row="0" Content="Selected:"/>
+            <Border Grid.Row="1" BorderThickness="1" BorderBrush="Gray" CornerRadius="3">
+                <DataGrid x:Name="_selectedGrid" Grid.Row="1" Margin="0,1,0,1" 
+                          ItemsSource="{Binding Selecteds}" MouseDoubleClick="Selecteds_MouseDoubleClick"
+                          AutoGenerateColumns="False" CanUserAddRows="False">
+                    <DataGrid.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem Header="Delete" Click="Delete_Click"/>
+                        </ContextMenu>
+                    </DataGrid.ContextMenu>
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Name" Width="130" Binding="{Binding Name}" IsReadOnly="True"/>
+                        <DataGridTemplateColumn Header="Param" Width="*" IsReadOnly="True">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <ListBox ItemsSource="{Binding Params}">
+                                        <ListBox.ItemTemplate>
+                                            <DataTemplate>
+                                                <TextBlock>
+                                                    <TextBlock.Text>
+                                                        <MultiBinding StringFormat="{}{0}={1}">
+                                                            <Binding Path="Name"/>
+                                                            <Binding Path="Value"/>
+                                                        </MultiBinding>
+                                                    </TextBlock.Text>
+                                                </TextBlock>
+                                            </DataTemplate>
+                                        </ListBox.ItemTemplate>
+                                    </ListBox>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTemplateColumn>
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button Content="Del" Click="Delete_Click"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Border>
+        </Grid>
+        <Grid Grid.Row="2" Grid.Column="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="100"/>
+            </Grid.ColumnDefinitions>
+            <Button Grid.Column="0" Click="OK_Click" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="70" Height="24">
+                Output
+            </Button>
+            <Button Grid.Column="1" Click="Cancel_Click" HorizontalAlignment="Center" VerticalAlignment="Bottom"  Width="70" Height="24">
+                Cancel
+            </Button>
+        </Grid>
+    </Grid>
+</Window>

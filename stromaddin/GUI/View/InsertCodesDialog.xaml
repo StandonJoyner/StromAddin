@@ -1,0 +1,94 @@
+﻿<Window x:Class="stromaddin.GUI.View.InsertCodesDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:stromaddin.GUI.View"
+        xmlns:cv="clr-namespace:stromaddin.GUI.ValueConvert"
+        mc:Ignorable="d"
+        Title="InsertCodes" Height="450" Width="516"
+        DataContext="{Binding RelativeSource={RelativeSource Self}}">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <!-- MahApps.Metro resource dictionaries. Make sure that all file names are Case Sensitive! -->
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
+                <!-- Theme setting -->
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Themes/Light.Blue.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+    <Grid Margin="8">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="8"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="8"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="8"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid Grid.Column="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Label Grid.Row="0" Content="Codes" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,0,0,0"/>
+                <Border Grid.Row="1" BorderBrush="Black" BorderThickness="1" Margin="0,0,0,0">
+                    <ListView ItemsSource="{Binding Symbols}" MouseDoubleClick="AddCode_MouseDoubleClick">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn DisplayMemberBinding="{Binding Symbol}" />
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </Border>
+            </Grid>
+            <Grid Grid.Column="2">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Label Grid.Row="0" Content="Selected" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,0,0,0"/>
+                <Border Grid.Row="1" BorderBrush="Black" BorderThickness="1" Margin="0,0,0,0">
+                    <ListView ItemsSource="{Binding Selecteds}" MouseDoubleClick="DelCode_MouseDoubleClick">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn DisplayMemberBinding="{Binding Symbol}" />
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </Border>
+            </Grid>
+        </Grid>
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="auto"/>
+            </Grid.ColumnDefinitions>
+            <Grid.Resources>
+                <cv:BooleanInvConverter x:Key="BooleanInvConverter"/>
+            </Grid.Resources>
+            <RadioButton Content="Vertical" GroupName="oLayout" IsChecked="{Binding IsVertical}" Grid.Column="1" />
+            <RadioButton Content="Horizontal" GroupName="oLayout" IsChecked="{Binding IsVertical, Converter={StaticResource BooleanInvConverter} }" Grid.Column="2"/>
+        </Grid>
+        <Grid Grid.Row="4">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="100"/>
+            </Grid.ColumnDefinitions>
+            <Button Grid.Column="0" Click="OK_Click" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="70" Height="24">
+                Output
+            </Button>
+            <Button Grid.Column="1" Click="Cancel_Click" HorizontalAlignment="Center" VerticalAlignment="Bottom"  Width="70" Height="24">
+                Cancel
+            </Button>
+        </Grid>
+    </Grid>
+</Window>

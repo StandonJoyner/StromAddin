@@ -1,0 +1,33 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFrameworks>net472;net6.0-windows</TargetFrameworks>
+		<UseWindowsForms>true</UseWindowsForms>
+    <UseWPF>true</UseWPF>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<EmbeddedResource Remove="GUI\Panel\PanelControl.resx" />
+    <EmbeddedResource Include="Resources\RtdIndicators.xml" />
+    <EmbeddedResource Include="Resources\Ribbon.xml" />
+	</ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="Binance.Net" Version="9.1.6" />
+		<PackageReference Include="Dapper" Version="2.1.21" />
+		<PackageReference Include="ExcelDna.AddIn" Version="1.6.0" />
+		<PackageReference Include="MahApps.Metro" Version="2.4.10" />
+		<PackageReference Include="Microsoft.Office.Interop.Excel" Version="15.0.4795.1001" />
+		<!--PackageReference Include="Microsoft.Data.Sqlite" Version="8.0.0" /-->
+		<PackageReference Include="System.Data.SQLite.Core" Version="*-*" />
+	</ItemGroup>
+	<ItemGroup>
+		<None Include="Resources\cfg.db" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
+	</ItemGroup>
+	<ItemGroup>
+	  <Folder Include="Formula\Grid\" />
+	</ItemGroup>
+	<ItemGroup>
+	  <Reference Include="System.Net.Http" />
+	</ItemGroup>
+</Project>
+

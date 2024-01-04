@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="utf-8" ?> 
+<Root>
+  <Params>
+    <Param ID="1000" Name="Period" Key="period" Value="1d">
+      <Value Name="1 hour" Value="1h" />
+      <Value Name="4 hour" Value="4h" />
+      <Value Name="1 day"  Value="1d" />
+    </Param>
+  </Params>
+  <Indicators>
+    <Indicator Name="Time" Key="time" Type="Time" Help="Last event time">
+    </Indicator>
+    <Indicator Name="Last Price" Key="last_price" Type="Number" Help="Last price">
+    </Indicator>
+    <Indicator Name="Last Volume" Key="last_volume" Type="Number" Help="Last quantity">
+    </Indicator>
+    <Indicator Name="High" Key="high" Type="Number" Help="High price">
+      <Param ID="1000"/>
+    </Indicator>
+    <Indicator Name="Open" Key="open" Type="Number" Help="Open price">
+      <Param ID="1000"/>
+    </Indicator>
+    <Indicator Name="Low" Key="low" Type="Number" Help="low price">
+      <Param ID="1000"/>
+    </Indicator>
+
+    <Indicator Name="Bid" Key="bid" Type="Number" Help="Best bid price">
+    </Indicator>
+    <Indicator Name="Bid Volume" Key="bid_volume" Type="Number" Help="Best bid quantity">
+    </Indicator>
+    <Indicator Name="Ask" Key="ask" Type="Number" Help="Best ask price">
+    </Indicator>
+    <Indicator Name="Ask Volume" Key="ask_volume" Type="Number" Help="Best ask quantity">
+    </Indicator>
+
+    <Indicator Name="Weighted Average" Key="weighted_average" Type="Number" Help="Weighted average price">
+      <Param ID="1000"/>
+    </Indicator>
+    <Indicator Name="Volume" Key="volume" Type="Number" Help="Total traded base asset volume">
+      <Param ID="1000"/>
+    </Indicator>
+    <Indicator Name="Quote Volume" Key="quote_volume" Type="Number" Help="Total traded quote asset volume">
+      <Param ID="1000"/>
+    </Indicator>
+    <Indicator Name="Total Trades" Key="count" Type="Number" Help="Total number of trades">
+      <Param ID="1000"/>
+    </Indicator>
+    <Indicator Name="Price Change" Key="change" Type="Number" Help="Price change">
+      <Param ID="1000"/>
+    </Indicator>
+    <Indicator Name="Price Change(%)" Key="change_percent" Type="Percent" Help="Price change percent">
+      <Param ID="1000"/>
+    </Indicator>
+  </Indicators>
+</Root>

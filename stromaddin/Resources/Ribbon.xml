@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<customUI xmlns='http://schemas.microsoft.com/office/2006/01/customui'>
+  <ribbon>
+    <tabs>
+      <tab id='stromtab' label='Strom'>
+        <group id='group1' label='My Group'>
+          <button id='button1' label='My Button' onAction='OnButtonPressed'/>
+          <button id='testBtn' label='TEST' onAction='OnTestButtonPressed'/>
+          <button id='rtdBtn' label='RTD' onAction='OnRTDButtonPressed'/>
+        </group>
+        <group id='group2'>
+          <button id='btnInsertSeries' label='Insert Series' onAction='OnInsertSeriesPressed'/>
+        </group>
+        <group id='group3' label='Tools'>
+          <button id='btnInsertCodes' label='Insert Codes' onAction='OnInsertCodesPressed'/>
+        </group>
+      </tab>
+    </tabs>
+  </ribbon>
+</customUI>
