@@ -42,9 +42,9 @@ namespace stromaddin.Formula
             string fmu = XlCall.Excel(XlCall.xlfFormulatext, caller) as string;
             if (fmu == null)
                 return ExcelErrorUtil.ToComError(ExcelError.ExcelErrorValue);
-            Calculator calc = new Calculator(symbols, begDate, endDate, indis, ext, source);
+            DSCalculator calc = new DSCalculator(symbols, begDate, endDate, indis, ext, source);
             return ExcelAsyncUtil.Observe("CSDS", new object[] { caller, fmu },
-                ()=> new DateSeriesObservable(caller, fmu, calc));
+                ()=> new DSObservable(caller, fmu, calc));
         }
         //static SQLiteConnection _connection;
         //static SQLiteCommand _productNameCommand;
