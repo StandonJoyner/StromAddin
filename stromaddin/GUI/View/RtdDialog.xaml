@@ -32,7 +32,7 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
-        <local:SearchBox x:Name="_symEditor" Grid.Row="0" Grid.Column="0" Margin="0, 0, 4, 2"
+        <local:SearchBox x:Name="_symEditor" Grid.Row="0" Grid.Column="0" VerticalContentAlignment="Center"
                          LabelText="Symbol" Text="BTCUSDT" WatermarkText="Input one symbol"/>
         <Grid Grid.Row="1" Grid.Column="0">
             <Grid.RowDefinitions>
