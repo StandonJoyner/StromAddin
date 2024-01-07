@@ -8,18 +8,9 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Interop;
-using Microsoft.Office.Interop;
-using System.Windows.Forms;
-using System.Windows;
 using stromaddin.Config;
-using Microsoft.Office.Interop.Excel;
-using stromaddin.Core.Excel;
-using System.IO;
-using System.Reflection;
-using System.Drawing;
-using stdole;
-using EnvDTE;
 using stromddin.Resources;
+using Microsoft.Office.Interop.Excel;
 
 namespace stromaddin.GUI.Ribbon
 {
@@ -71,6 +62,7 @@ namespace stromaddin.GUI.Ribbon
                     OnIdentifierLookup();
                     break;
                 case "refresh":
+                    OnRefresh();
                     break;
             }
         }
@@ -89,6 +81,11 @@ namespace stromaddin.GUI.Ribbon
             var win = new WindowInteropHelper(rtdDlg);
             win.Owner = ExcelDnaUtil.WindowHandle;
             rtdDlg.Show();
+        }
+        public void OnRefresh()
+        {
+            Application app = (Application)ExcelDnaUtil.Application;
+            app.CalculateFullRebuild();
         }
 
         public override string GetCustomUI(string RibbonID)
