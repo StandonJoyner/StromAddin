@@ -51,6 +51,15 @@ namespace stromddin.Formula.DateSeries
             _data = data;
             FillAll();
         }
+        public void SetError(string err)
+        {
+            if (ExcelDnaUtil.MainManagedThreadId != Thread.CurrentThread.ManagedThreadId)
+                throw new InvalidOperationException("SetError must be called from a main thread.");
+            _status = Status.Failed;
+            _complateTm = DateTime.Now;
+            _data = null;
+            FillAll();
+        }
         public void FillAll()
         {
             ExcelAsyncUtil.QueueAsMacro(() =>
@@ -59,10 +68,22 @@ namespace stromddin.Formula.DateSeries
                 {
                     foreach (var target in _targets.Values)
                     {
-                        target.Observer.OnNext("Complete");
-                        Application excelApp = (Application)ExcelDnaUtil.Application;
-                        var range = excelApp.Range[target.Caller.ConvertToA1Style()];
-                        _data.Output(range.Offset[1]);
+                        if (_status == Status.Failed)
+                        {
+                            target.Observer.OnNext("Failed");
+                        }
+                        else if (_status == Status.Timeout)
+                        {
+                            target.Observer.OnNext("Timeout");
+                        }
+                        else
+                        {
+                            target.Observer.OnNext("Complete");
+                            Application excelApp = (Application)ExcelDnaUtil.Application;
+                            var a1Caller = target.Caller.ConvertToA1Style();
+                            var range = excelApp.Range[a1Caller];
+                            _data.Output(range.Offset[1]);
+                        }
                     }
                 }
             });

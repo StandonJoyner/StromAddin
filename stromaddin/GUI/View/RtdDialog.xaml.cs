@@ -81,18 +81,40 @@ namespace stromaddin.GUI.View
         }
         private void Selecteds_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            var indi = (sender as DataGrid).SelectedItem as RtdIndicator;
-            if (indi == null)
+            int row = _selectedGrid.SelectedIndex;
+            if (row == -1)
                 return;
-            if (EditIndicator(indi))
-            {
-                int row = _selectedGrid.SelectedIndex;
-                _selecteds.RemoveAt(row);
-                _selecteds.Insert(row, indi);
-            }
+            _selecteds.RemoveAt(row);
+        }
+        private void TextBlock_MouseRightButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            // Get the TextBlock
+            var textBlock = sender as TextBlock;
+
+            // Get the DataGridRow
+            var dataGridRow = FindParent<DataGridRow>(textBlock);
+
+            // Select the row
+            dataGridRow.IsSelected = true;
+        }
+        private static T FindParent<T>(DependencyObject child) where T : DependencyObject
+        {
+            // Get the parent object
+            var parentObject = VisualTreeHelper.GetParent(child);
+
+            // If the parent is null, return null
+            if (parentObject == null) return null;
+
+            // If the parent is of the correct type, return it
+            if (parentObject is T parent) return parent;
+
+            // Otherwise, call this method recursively
+            return FindParent<T>(parentObject);
         }
         private bool EditIndicator(RtdIndicator indiSel)
         {
+            if (indiSel.Params.Count == 0)
+                return false;
             var dlg = new RtdParamsDialog(indiSel);
             dlg.ShowDialog();
             if (dlg.DialogResult.Value)
@@ -106,12 +128,19 @@ namespace stromaddin.GUI.View
             }
         }
 
-        private void Delete_Click(object sender, RoutedEventArgs e)
+        private void EditBtn_Click(object sender, RoutedEventArgs e)
         {
             int row = _selectedGrid.SelectedIndex;
             if (row == -1)
                 return;
-            _selecteds.RemoveAt(row);
+            var indi = _selecteds[row];
+            if (indi == null)
+                return;
+            if (EditIndicator(indi))
+            {
+                _selecteds.RemoveAt(row);
+                _selecteds.Insert(row, indi);
+            }
         }
 
         private void OK_Click(object sender, RoutedEventArgs e)

@@ -2,7 +2,7 @@
 <customUI xmlns='http://schemas.microsoft.com/office/2009/07/customui' loadImage='LoadImage'>
   <ribbon>
     <tabs>
-      <tab id='stromtab' label='Strom'>
+      <tab id='stromtab' label='CoinStrom'>
         <group id='group1' label='My Group'>
           <button id='button1' label='My Button' onAction='OnButtonPressed'/>
           <button id='testBtn' label='TEST' onAction='OnTestButtonPressed'/>

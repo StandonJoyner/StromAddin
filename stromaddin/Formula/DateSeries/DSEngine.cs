@@ -1,6 +1,8 @@
 ﻿using ExcelDna.Integration;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace stromddin.Formula.DateSeries
@@ -47,10 +49,22 @@ namespace stromddin.Formula.DateSeries
 
     internal class DSEngine
     {
+        // Add a BlockingCollection to queue tasks
+        private BlockingCollection<Task> _taskQueue = new BlockingCollection<Task>();
+
         Dictionary<string, DSResultContext> _results = new Dictionary<string, DSResultContext>();
         public static DSEngine Instance = new DSEngine();
         private DSEngine()
         {
+            // Start a dedicated thread to process tasks in the queue
+            new Thread(() =>
+            {
+                foreach (var task in _taskQueue.GetConsumingEnumerable())
+                {
+                    task.Start();
+                }
+            })
+            { IsBackground = true }.Start();
         }
 
         public void Calculate(DSCalculator calc, ResultTarget target)
@@ -84,7 +98,8 @@ namespace stromddin.Formula.DateSeries
                 target.Observer.OnNext("Waiting...");
             }
 
-            Task.Run(async () => await ImplCalculate(calc));
+            // Add the task to the queue instead of running it immediately
+            _taskQueue.Add(new Task(async () => await ImplCalculate(calc)));
         }
 
         public void FillResultTo(DSCalculator calc, ResultTarget target)
@@ -118,7 +133,8 @@ namespace stromddin.Formula.DateSeries
                 target.Observer.OnNext("Waiting...");
                 value.AddTarget(target.Caller, target);
             }
-            Task.Run(async () => await ImplCalculate(calc));
+            // Add the task to the queue instead of running it immediately
+            _taskQueue.Add(new Task(async () => await ImplCalculate(calc)));
         }
 
         public string RetryCalculate(DSCalculator calc, ResultTarget target)
@@ -144,7 +160,7 @@ namespace stromddin.Formula.DateSeries
                     }
                     else
                     {
-                        value.SetResult(null);
+                        value.SetError(calc.ErrMessage);
                     }
                 }
             });
