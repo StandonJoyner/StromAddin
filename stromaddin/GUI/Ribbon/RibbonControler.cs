@@ -16,6 +16,10 @@ using Microsoft.Office.Interop.Excel;
 using stromaddin.Core.Excel;
 using System.IO;
 using System.Reflection;
+using System.Drawing;
+using stdole;
+using EnvDTE;
+using stromddin.Resources;
 
 namespace stromaddin.GUI.Ribbon
 {
@@ -23,21 +27,6 @@ namespace stromaddin.GUI.Ribbon
     public class RibbonControler : ExcelRibbon
     {
         private CustomTaskPane _myTaskPane;
-        public override string GetCustomUI(string RibbonID)
-        {
-            var assembly = Assembly.GetExecutingAssembly();
-            var resourceName = assembly.GetManifestResourceNames()
-            .Single(str => str.EndsWith("Resources.Ribbon.xml"));
-            using (Stream stream = assembly.GetManifestResourceStream(resourceName))
-            {
-                using (StreamReader reader = new StreamReader(stream))
-                {
-                    string result = reader.ReadToEnd();
-                    return result;
-                }
-            }
-            return "";
-        }
 
         public void OnButtonPressed(IRibbonControl control)
         {
@@ -57,15 +46,6 @@ namespace stromaddin.GUI.Ribbon
             RtdIndicators.Instance.GetIndicators();
         }
 
-        public void OnRTDButtonPressed(IRibbonControl control)
-        {
-            // show rtd window
-            var rtdDlg = new stromaddin.GUI.View.RtdDialog();
-            var win = new WindowInteropHelper(rtdDlg);
-            win.Owner = ExcelDnaUtil.WindowHandle;
-            rtdDlg.Show();
-        }
-
         public void OnTestButtonPressed(IRibbonControl control)
         {
             //TableOutput table = new TableOutput(2, 2, true);
@@ -77,13 +57,49 @@ namespace stromaddin.GUI.Ribbon
             //_Application app = (_Application)ExcelDnaUtil.Application;
             //table.Output(app.ActiveCell);
         }
-        public void OnInsertCodesPressed(IRibbonControl control)
+
+        public void OnActionButton(IRibbonControl control)
         {
-            // show rtd window
-            var rtdDlg = new stromaddin.GUI.View.InsertCodesDialog();
+            switch (control.Id)
+            {
+                case "date_history":
+                    break;
+                case "real_time":
+                    OnRTD();
+                    break;
+                case "identifier_lookup":
+                    OnIdentifierLookup();
+                    break;
+                case "refresh":
+                    break;
+            }
+        }
+
+        private void OnIdentifierLookup()
+        {
+            var rtdDlg = new View.IdentifierLookupDialog();
             var win = new WindowInteropHelper(rtdDlg);
             win.Owner = ExcelDnaUtil.WindowHandle;
             rtdDlg.ShowDialog();
+        }
+        public void OnRTD()
+        {
+            // show rtd window
+            var rtdDlg = new View.RtdDialog();
+            var win = new WindowInteropHelper(rtdDlg);
+            win.Owner = ExcelDnaUtil.WindowHandle;
+            rtdDlg.Show();
+        }
+
+        public override string GetCustomUI(string RibbonID)
+        {
+            return RibbonResources.Ribbon;
+        }
+
+        public override object LoadImage(string imageId)
+        {
+            // This will return the image resource with the name specified in the image='xxxx' tag
+            return RibbonResources.ResourceManager.GetObject(imageId);
         }
     }
 }

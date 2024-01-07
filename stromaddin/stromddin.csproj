@@ -9,7 +9,6 @@
 	<ItemGroup>
 		<EmbeddedResource Remove="GUI\Panel\PanelControl.resx" />
     <EmbeddedResource Include="Resources\RtdIndicators.xml" />
-    <EmbeddedResource Include="Resources\Ribbon.xml" />
 	</ItemGroup>
 	<ItemGroup>
 		<PackageReference Include="Binance.Net" Version="9.1.6" />
@@ -17,17 +16,29 @@
 		<PackageReference Include="ExcelDna.AddIn" Version="1.6.0" />
 		<PackageReference Include="MahApps.Metro" Version="2.4.10" />
 		<PackageReference Include="Microsoft.Office.Interop.Excel" Version="15.0.4795.1001" />
+		<PackageReference Include="stdole" Version="17.8.37221" />
 		<!--PackageReference Include="Microsoft.Data.Sqlite" Version="8.0.0" /-->
 		<PackageReference Include="System.Data.SQLite.Core" Version="*-*" />
+		<PackageReference Include="System.Runtime.Caching" Version="8.0.0" />
+	</ItemGroup>
+  <ItemGroup>
+    <Reference Include="System.Net.Http" />
+  </ItemGroup>
+	<ItemGroup>
+	  <Compile Update="Resources\RibbonResources.Designer.cs">
+	    <DesignTime>True</DesignTime>
+	    <AutoGen>True</AutoGen>
+	    <DependentUpon>RibbonResources.resx</DependentUpon>
+	  </Compile>
 	</ItemGroup>
 	<ItemGroup>
-		<None Include="Resources\cfg.db" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
+	  <EmbeddedResource Update="Resources\RibbonResources.resx">
+	    <Generator>ResXFileCodeGenerator</Generator>
+	    <LastGenOutput>RibbonResources.Designer.cs</LastGenOutput>
+	  </EmbeddedResource>
 	</ItemGroup>
 	<ItemGroup>
-	  <Folder Include="Formula\Grid\" />
-	</ItemGroup>
-	<ItemGroup>
-	  <Reference Include="System.Net.Http" />
+	  <Folder Include="Core\DB\" />
 	</ItemGroup>
 </Project>
 

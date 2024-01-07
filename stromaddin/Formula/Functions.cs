@@ -19,10 +19,8 @@ namespace stromaddin.Formula
         [ExcelFunction(Category = "CoinStrom", Description = "Provides real-time market data (powered by CoinStrom)")]
         public static object CSRTD(string symbol, string indi, string parm, string source)
         {
-            //EnsureConnection();
-
             symbol = symbol.Trim().ToUpper();
-            symbol = Core.DB.Tickers.FindSymbol(symbol);
+            symbol = stromddin.Core.SymbolsSet.FindSymbol(symbol);
             if (symbol.Length == 0)
                 return ExcelErrorUtil.ToComError(ExcelError.ExcelErrorValue);
             string[] prams = {
@@ -34,8 +32,8 @@ namespace stromaddin.Formula
             return XlCall.RTD(RTD.RTDServer.ProgId, null, prams);
         }
 
-        [ExcelFunction(Category = "CoinStrom", Description = "Provides date-series data (powered by CoinStrom)")]
-        public static object CSDS(string symbols, string begDate, string endDate,
+        [ExcelFunction(Category = "CoinStrom", Description = "Provides data history (powered by CoinStrom)")]
+        public static object CSDH(string symbols, string begDate, string endDate,
             string indis, string ext, string source)
         {
             ExcelReference caller = XlCall.Excel(XlCall.xlfCaller) as ExcelReference;
@@ -43,7 +41,7 @@ namespace stromaddin.Formula
             if (fmu == null)
                 return ExcelErrorUtil.ToComError(ExcelError.ExcelErrorValue);
             DSCalculator calc = new DSCalculator(symbols, begDate, endDate, indis, ext, source);
-            return ExcelAsyncUtil.Observe("CSDS", new object[] { caller, fmu },
+            return ExcelAsyncUtil.Observe("CSDH", new object[] { caller, fmu },
                 ()=> new DSObservable(caller, fmu, calc));
         }
         //static SQLiteConnection _connection;

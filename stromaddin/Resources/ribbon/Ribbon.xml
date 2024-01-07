@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<customUI xmlns='http://schemas.microsoft.com/office/2006/01/customui'>
+<customUI xmlns='http://schemas.microsoft.com/office/2009/07/customui' loadImage='LoadImage'>
   <ribbon>
     <tabs>
       <tab id='stromtab' label='Strom'>
@@ -9,10 +9,12 @@
           <button id='rtdBtn' label='RTD' onAction='OnRTDButtonPressed'/>
         </group>
         <group id='group2'>
-          <button id='btnInsertSeries' label='Insert Series' onAction='OnInsertSeriesPressed'/>
+          <button id='data_history' image='history' size='large' label='Data History' onAction='OnActionButton'/>
+          <button id='real_time' image='realtime' size='large' label='Real Time' onAction='OnActionButton'/>
         </group>
         <group id='group3' label='Tools'>
-          <button id='btnInsertCodes' label='Insert Codes' onAction='OnInsertCodesPressed'/>
+          <button id='identifier_lookup' image='search' size='large' label='Identifier Lookup' onAction='OnActionButton'/>
+          <button id='refresh' image='refresh' size='large' label='Refresh' onAction='OnActionButton'/>
         </group>
       </tab>
     </tabs>

@@ -5,7 +5,6 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using ExcelDna.Integration.Rtd;
-using stromaddin.Core.DB;
 
 namespace stromaddin.Formula.RTD
 {

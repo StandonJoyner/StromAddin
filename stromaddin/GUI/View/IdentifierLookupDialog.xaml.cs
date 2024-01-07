@@ -13,8 +13,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using stromaddin.Core.DB;
 using stromaddin.Core.Excel;
+using stromddin.Core;
 
 namespace stromaddin.GUI.View
 {
@@ -33,11 +33,11 @@ namespace stromaddin.GUI.View
     /// <summary>
     /// InsertCodes.xaml
     /// </summary>
-    public partial class InsertCodesDialog : Window
+    public partial class IdentifierLookupDialog : Window
     {
         private ObservableCollection<TickerSymbol> _selecteds = new ObservableCollection<TickerSymbol>();
         private OutputLayoutProperty _layout = new OutputLayoutProperty();
-        public InsertCodesDialog()
+        public IdentifierLookupDialog()
         {
             InitializeComponent();
         }
@@ -51,7 +51,7 @@ namespace stromaddin.GUI.View
         {
             get
             {
-                return Tickers.Symbols;
+                return SymbolsSet.Symbols;
             }
         }
         public ObservableCollection<TickerSymbol> Selecteds
