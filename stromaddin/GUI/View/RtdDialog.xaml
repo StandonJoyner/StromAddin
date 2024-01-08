@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mah="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:stromaddin.GUI.View"
+        xmlns:UC="clr-namespace:stromaddin.GUI.Controls"
         xmlns:localcfg="clr-namespace:stromaddin.Config"
         mc:Ignorable="d"
         Title="Window1" Height="500" Width="600"
@@ -25,14 +25,15 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="24"/>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="30"/>
+            <RowDefinition Height="6"/>
+            <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="200"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
-        <local:SearchBox x:Name="_symEditor" Grid.Row="0" Grid.Column="0" VerticalContentAlignment="Center"
+        <UC:SearchBox x:Name="_symEditor" Grid.Row="0" Grid.Column="0" VerticalContentAlignment="Center"
                          LabelText="Symbol" Text="BTCUSDT" WatermarkText="Input one symbol"/>
         <Grid Grid.Row="1" Grid.Column="0">
             <Grid.RowDefinitions>
@@ -111,15 +112,15 @@
                 </DataGrid>
             </Border>
         </Grid>
-        <Grid Grid.Row="2" Grid.Column="1">
+        <Grid Grid.Row="3" Grid.Column="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="100"/>
             </Grid.ColumnDefinitions>
-            <Button Grid.Column="0" Click="OK_Click" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="70" Height="24">
+            <Button Grid.Column="0" Click="OK_Click" HorizontalAlignment="Right" Width="70">
                 Output
             </Button>
-            <Button Grid.Column="1" Click="Cancel_Click" HorizontalAlignment="Center" VerticalAlignment="Bottom"  Width="70" Height="24">
+            <Button Grid.Column="1" Click="Cancel_Click" HorizontalAlignment="Center" Width="70" >
                 Cancel
             </Button>
         </Grid>

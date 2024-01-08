@@ -11,6 +11,7 @@ using System.Windows.Interop;
 using stromaddin.Config;
 using stromddin.Resources;
 using Microsoft.Office.Interop.Excel;
+using stromddin.GUI.View;
 
 namespace stromaddin.GUI.Ribbon
 {
@@ -53,7 +54,8 @@ namespace stromaddin.GUI.Ribbon
         {
             switch (control.Id)
             {
-                case "date_history":
+                case "data_history":
+                    OnDataHistory();
                     break;
                 case "real_time":
                     OnRTD();
@@ -66,15 +68,21 @@ namespace stromaddin.GUI.Ribbon
                     break;
             }
         }
-
+        private void OnDataHistory()
+        {
+            var dhDlg = new DataHistoryDialog();
+            var win = new WindowInteropHelper(dhDlg);
+            win.Owner = ExcelDnaUtil.WindowHandle;
+            dhDlg.Show();
+        }
         private void OnIdentifierLookup()
         {
-            var rtdDlg = new View.IdentifierLookupDialog();
-            var win = new WindowInteropHelper(rtdDlg);
+            var lookupDlg = new View.IdentifierLookupDialog();
+            var win = new WindowInteropHelper(lookupDlg);
             win.Owner = ExcelDnaUtil.WindowHandle;
-            rtdDlg.ShowDialog();
+            lookupDlg.Show();
         }
-        public void OnRTD()
+        private void OnRTD()
         {
             // show rtd window
             var rtdDlg = new View.RtdDialog();
@@ -82,7 +90,7 @@ namespace stromaddin.GUI.Ribbon
             win.Owner = ExcelDnaUtil.WindowHandle;
             rtdDlg.Show();
         }
-        public void OnRefresh()
+        private void OnRefresh()
         {
             Application app = (Application)ExcelDnaUtil.Application;
             app.CalculateFullRebuild();

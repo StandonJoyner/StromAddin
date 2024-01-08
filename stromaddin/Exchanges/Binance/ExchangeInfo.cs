@@ -52,6 +52,8 @@ namespace stromddin.Exchanges.Binance
                 }
                 var ts = GetExchangeInfo(type);
                 var info = ts.Result;
+                if (info == null)
+                    return Enumerable.Empty<BinanceSymbol>();
                 if (tradingOnly)
                 {
                     var all = info.Symbols.Where(s => s.Status == SymbolStatus.Trading);

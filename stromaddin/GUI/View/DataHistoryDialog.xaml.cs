@@ -19,9 +19,41 @@ namespace stromddin.GUI.View
     /// </summary>
     public partial class DataHistoryDialog : Window
     {
+        private int _currentPageIndex = 0;
+        private ContentControl[] _pages;
+
         public DataHistoryDialog()
         {
             InitializeComponent();
+
+            //_pages = new ContentControl[] { new SymbolsChooseControl() };
+            //_PageContent = _pages[_currentPageIndex];
+        }
+
+        private void Previous_Click(object sender, RoutedEventArgs e)
+        {
+            if (_currentPageIndex > 0)
+            {
+                _currentPageIndex--;
+                _PageContent = _pages[_currentPageIndex];
+            }
+        }
+
+        private void Next_Click(object sender, RoutedEventArgs e)
+        {
+            if (_currentPageIndex < _pages.Length - 1)
+            {
+                _currentPageIndex++;
+                _PageContent = _pages[_currentPageIndex];
+            }
+        }
+        private void OK_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+        private void Cancel_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

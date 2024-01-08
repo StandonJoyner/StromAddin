@@ -6,7 +6,45 @@
         xmlns:local="clr-namespace:stromddin.GUI.View"
         mc:Ignorable="d"
         Title="DataHistoryDialog" Height="450" Width="800">
-    <Grid>
-        
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <!-- MahApps.Metro resource dictionaries. Make sure that all file names are Case Sensitive! -->
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
+                <!-- Theme setting -->
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Themes/Light.Blue.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+    <Grid Margin="8">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="2"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="6"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        <ContentControl x:Name="_PageContent" Grid.Row="1"/>
+        <Grid Grid.Row="3">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="80"/>
+                <ColumnDefinition Width="80"/>
+                <ColumnDefinition Width="80"/>
+                <ColumnDefinition Width="80"/>
+            </Grid.ColumnDefinitions>
+            <Button Grid.Column="1" Click="Previous_Click" Width="70">
+                Previous
+            </Button>
+            <Button Grid.Column="2" Click="Next_Click" Width="70">
+                Next
+            </Button>
+            <Button Grid.Column="3" Click="OK_Click" Width="70">
+                Output
+            </Button>
+            <Button Grid.Column="4" Click="Cancel_Click" Width="70">
+                Cancel
+            </Button>
+        </Grid>
     </Grid>
 </Window>

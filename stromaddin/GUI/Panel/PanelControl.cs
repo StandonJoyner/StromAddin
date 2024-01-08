@@ -22,10 +22,10 @@ namespace stromaddin.GUI.Panel
         {
             ElementHost host  = new ElementHost();
             host.Dock = DockStyle.Fill;
-            
-            var wpfControl = new stromaddin.GUI.View.UserControl1();
-            host.Child = wpfControl;
-            this.Controls.Add(host);
+
+            //var wpfControl = new stromaddin.GUI.View.SymbolsChoose();
+            //host.Child = wpfControl;
+            //this.Controls.Add(host);
             // Add any initialization after the InitializeComponent() call.
         }
     }

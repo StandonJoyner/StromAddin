@@ -3,11 +3,11 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:stromaddin.GUI.View"
         xmlns:cv="clr-namespace:stromaddin.GUI.ValueConvert"
+        xmlns:UC="clr-namespace:stromddin.GUI.Controls"
         mc:Ignorable="d"
         Title="InsertCodes" Height="450" Width="516"
-        DataContext="{Binding RelativeSource={RelativeSource Self}}">
+        DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}">
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -28,68 +28,28 @@
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
         <Grid Grid.Row="0">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="8"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-            <Grid Grid.Column="0">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="auto"/>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
-                <Label Grid.Row="0" Content="Codes" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,0,0,0"/>
-                <Border Grid.Row="1" BorderBrush="Black" BorderThickness="1" Margin="0,0,0,0">
-                    <ListView ItemsSource="{Binding Symbols}" MouseDoubleClick="AddCode_MouseDoubleClick">
-                        <ListView.View>
-                            <GridView>
-                                <GridViewColumn DisplayMemberBinding="{Binding Symbol}" />
-                            </GridView>
-                        </ListView.View>
-                    </ListView>
-                </Border>
-            </Grid>
-            <Grid Grid.Column="2">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="auto"/>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
-                <Label Grid.Row="0" Content="Selected" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,0,0,0"/>
-                <Border Grid.Row="1" BorderBrush="Black" BorderThickness="1" Margin="0,0,0,0">
-                    <ListView ItemsSource="{Binding Selecteds}" MouseDoubleClick="DelCode_MouseDoubleClick">
-                        <ListView.View>
-                            <GridView>
-                                <GridViewColumn DisplayMemberBinding="{Binding Symbol}" />
-                            </GridView>
-                        </ListView.View>
-                    </ListView>
-                </Border>
-            </Grid>
+            <UC:SymbolsLookup x:Name="_symbolsLookup" />
         </Grid>
         <Grid Grid.Row="2">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="auto"/>
-                <ColumnDefinition Width="8"/>
-                <ColumnDefinition Width="auto"/>
-            </Grid.ColumnDefinitions>
             <Grid.Resources>
                 <cv:BooleanInvConverter x:Key="BooleanInvConverter"/>
             </Grid.Resources>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="8"/>
+                <ColumnDefinition Width="auto"/>
+            </Grid.ColumnDefinitions>
             <RadioButton Content="Vertical" GroupName="oLayout" IsChecked="{Binding IsVertical}" Grid.Column="1" />
-            <RadioButton Content="Horizontal" GroupName="oLayout" IsChecked="{Binding IsVertical, Converter={StaticResource BooleanInvConverter} }" Grid.Column="3"/>
+            <RadioButton Content="Horizontal" GroupName="oLayout" IsChecked="{Binding IsVertical, Converter={StaticResource BooleanInvConverter}}" Grid.Column="3"/>
         </Grid>
         <Grid Grid.Row="4">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="100"/>
             </Grid.ColumnDefinitions>
-            <Button Grid.Column="0" Click="OK_Click" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="70" Height="24">
-                Output
-            </Button>
-            <Button Grid.Column="1" Click="Cancel_Click" HorizontalAlignment="Center" VerticalAlignment="Bottom"  Width="70" Height="24">
-                Cancel
-            </Button>
+            <Button Grid.Column="0" Click="OK_Click" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="70" Height="24" Content="Output"/>
+            <Button Grid.Column="1" Click="Cancel_Click" HorizontalAlignment="Center" VerticalAlignment="Bottom"  Width="70" Height="24" Content="Cancel"/>
         </Grid>
     </Grid>
 </Window>

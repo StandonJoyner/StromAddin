@@ -35,7 +35,6 @@ namespace stromaddin.GUI.View
     /// </summary>
     public partial class IdentifierLookupDialog : Window
     {
-        private ObservableCollection<TickerSymbol> _selecteds = new ObservableCollection<TickerSymbol>();
         private OutputLayoutProperty _layout = new OutputLayoutProperty();
         public IdentifierLookupDialog()
         {
@@ -47,23 +46,10 @@ namespace stromaddin.GUI.View
             get => _layout.IsVertical;
             set => _layout.IsVertical = value;
         }
-        public List<TickerSymbol> Symbols
-        {
-            get
-            {
-                return SymbolsSet.Symbols;
-            }
-        }
-        public ObservableCollection<TickerSymbol> Selecteds
-        {             
-            get
-            {
-                return _selecteds;
-            }
-        }
 
         private void OK_Click(object sender, RoutedEventArgs e)
         {
+            var _selecteds = _symbolsLookup.Selecteds;
             if (_selecteds.Count == 0)
             {
                 MessageBox.Show("Please select at least one code.");
@@ -85,26 +71,12 @@ namespace stromaddin.GUI.View
                 }
                 tb.Output(null);
             }
-            DialogResult = true;
+            //DialogResult = true;
         }
 
         private void Cancel_Click(object sender, RoutedEventArgs e)
         {
-            DialogResult = false;
-        }
-
-        private void AddCode_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-        {
-            var lv = (sender as ListView);
-            var sym = lv.SelectedItem as TickerSymbol;
-            _selecteds.Add(sym);
-        }
-
-        private void DelCode_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-        {
-            var lv = (sender as ListView);
-            var sym = lv.SelectedItem as TickerSymbol;
-            _selecteds.Remove(sym);
+            //DialogResult = false;
         }
     }
 }

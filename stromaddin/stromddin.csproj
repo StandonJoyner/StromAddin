@@ -16,7 +16,6 @@
 		<PackageReference Include="ExcelDna.AddIn" Version="1.6.0" />
 		<PackageReference Include="MahApps.Metro" Version="2.4.10" />
 		<PackageReference Include="Microsoft.Office.Interop.Excel" Version="15.0.4795.1001" />
-		<PackageReference Include="stdole" Version="17.8.37221" />
 		<!--PackageReference Include="Microsoft.Data.Sqlite" Version="8.0.0" /-->
 		<PackageReference Include="System.Data.SQLite.Core" Version="*-*" />
 		<PackageReference Include="System.Runtime.Caching" Version="8.0.0" />
