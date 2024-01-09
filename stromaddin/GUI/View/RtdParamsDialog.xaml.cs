@@ -58,7 +58,7 @@ namespace stromaddin.GUI.View
     public partial class RtdParamsDialog : Window
     {
         private ObservableCollection<RtdParamProperty> _rtdParams;
-        public RtdParamsDialog(RtdIndicator rtdIndi)
+        public RtdParamsDialog(XMLIndicator rtdIndi)
         {
             _rtdParams = new ObservableCollection<RtdParamProperty>();
             foreach (var item in rtdIndi.Params)

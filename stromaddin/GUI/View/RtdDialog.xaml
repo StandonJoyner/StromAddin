@@ -44,7 +44,7 @@
             <Border Grid.Row="1" BorderThickness="1" BorderBrush="Gray" CornerRadius="3">
                 <ListBox MouseDoubleClick="ListItem_MouseDoubleClick" ItemsSource="{Binding Indicators}"  Margin="0,1,0,1">
                     <ListBox.ItemTemplate>
-                        <DataTemplate DataType="{x:Type localcfg:RtdIndicator}">
+                        <DataTemplate DataType="{x:Type localcfg:XMLIndicator}">
                             <Grid ToolTip="{Binding Description}">
                                 <TextBlock Text="{Binding Name}" HorizontalAlignment="Stretch" Margin="4, 0, 0, 0"/>
                             </Grid>

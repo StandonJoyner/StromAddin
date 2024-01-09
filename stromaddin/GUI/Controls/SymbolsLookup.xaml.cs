@@ -1,4 +1,4 @@
-﻿using stromddin.Core;
+﻿using stromaddin.Core;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -15,7 +15,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace stromddin.GUI.Controls
+namespace stromaddin.GUI.Controls
 {
     /// <summary>
     /// SymbolsLookup.xaml 的交互逻辑

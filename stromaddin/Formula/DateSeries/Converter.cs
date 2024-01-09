@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using ListTable = System.Collections.Generic.List<System.Collections.Generic.KeyValuePair<string, System.Collections.Generic.List<object>>>;
 
-namespace stromddin.Formula.DateSeries
+namespace stromaddin.Formula.DateSeries
 {
     internal class Converter
     {

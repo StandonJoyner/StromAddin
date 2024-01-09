@@ -10,9 +10,9 @@ namespace stromaddin.Core.Excel
 {
     class RtdOutput
     {
-        private IEnumerable<RtdIndicator> _indis;
+        private IEnumerable<XMLIndicator> _indis;
         private string _coin;
-        public RtdOutput(string coin, IEnumerable<RtdIndicator> indis)
+        public RtdOutput(string coin, IEnumerable<XMLIndicator> indis)
         {
             _indis = indis;
             _coin = coin;
@@ -49,7 +49,7 @@ namespace stromaddin.Core.Excel
             table.Output(cell);
         }
 
-        private string MakeFormula(string nameAddr, string exAddr, RtdIndicator ind)
+        private string MakeFormula(string nameAddr, string exAddr, XMLIndicator ind)
         {
             StringBuilder sb = new StringBuilder();
             sb.Append("=CSRTD(");

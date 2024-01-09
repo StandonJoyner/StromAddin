@@ -29,16 +29,16 @@ namespace stromaddin.GUI.View
     public partial class RtdDialog : Window
     {
         private AddinMessageHook hook = new AddinMessageHook();
-        private ObservableCollection<RtdIndicator> _selecteds = new ObservableCollection<RtdIndicator>();
+        private ObservableCollection<XMLIndicator> _selecteds = new ObservableCollection<XMLIndicator>();
 
         public RtdDialog()
         {
             InitializeComponent();
-            this.Loaded += RtdDialog_Loaded;
-            this.Closed += RtdDialog_Closed;
+            this.Loaded += OnDialogLoaded;
+            this.Closed += OnDialogClosed;
         }
 
-        public List<RtdIndicator> Indicators
+        public List<XMLIndicator> Indicators
         {
             get
             {
@@ -46,7 +46,7 @@ namespace stromaddin.GUI.View
             }
         }
 
-        public ObservableCollection<RtdIndicator> Selecteds
+        public ObservableCollection<XMLIndicator> Selecteds
         {
             get
             {
@@ -54,21 +54,21 @@ namespace stromaddin.GUI.View
             }
         }
 
-        private void RtdDialog_Loaded(object sender, RoutedEventArgs e)
+        private void OnDialogLoaded(object sender, RoutedEventArgs e)
         {
             hook.HookKeyboard(this);
         }
-        private void RtdDialog_Closed(object sender, EventArgs e)
+        private void OnDialogClosed(object sender, EventArgs e)
         {
             hook.UnHookKeyboard();
         }
 
         private void ListItem_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            var indi = (sender as ListBox).SelectedItem as RtdIndicator;
+            var indi = (sender as ListBox).SelectedItem as XMLIndicator;
             if (indi == null)
                 return;
-            var indiSel = (RtdIndicator)indi.Clone();
+            var indiSel = (XMLIndicator)indi.Clone();
             if (indiSel.Params.Count > 0)
             {
                 if (EditIndicator(indiSel))
@@ -111,7 +111,7 @@ namespace stromaddin.GUI.View
             // Otherwise, call this method recursively
             return FindParent<T>(parentObject);
         }
-        private bool EditIndicator(RtdIndicator indiSel)
+        private bool EditIndicator(XMLIndicator indiSel)
         {
             if (indiSel.Params.Count == 0)
                 return false;

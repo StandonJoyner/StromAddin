@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace stromddin.Resources {
+namespace stromaddin.Resources {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace stromddin.Resources {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("stromddin.Resources.RibbonResources", typeof(RibbonResources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("stromaddin.Resources.RibbonResources", typeof(RibbonResources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -57,6 +57,30 @@ namespace stromddin.Resources {
             }
             set {
                 resourceCulture = value;
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot; ?&gt;
+        ///&lt;Root&gt;
+        ///  &lt;Params&gt;
+        ///    &lt;Param ID=&quot;1001&quot; Name=&quot;Period&quot; Key=&quot;period&quot; Value=&quot;1d&quot;&gt;
+        ///      &lt;Value Name=&quot;1 day&quot;  Value=&quot;1d&quot; /&gt;
+        ///      &lt;Value Name=&quot;1 week&quot; Value=&quot;1w&quot; /&gt;
+        ///      &lt;Value Name=&quot;1 month&quot; Value=&quot;1mo&quot; /&gt;
+        ///    &lt;/Param&gt;
+        ///  &lt;/Params&gt;
+        ///  &lt;Indicators&gt;
+        ///    &lt;Indicator Name=&quot;High&quot; Key=&quot;high&quot; Type=&quot;Number&quot; Help=&quot;High price&quot;&gt;
+        ///      &lt;Param ID=&quot;1001&quot;/&gt;
+        ///    &lt;/Indicator&gt;
+        ///    &lt;Indicator Name=&quot;Open&quot; Key=&quot;open&quot; Type=&quot;Number&quot; Help=&quot;Open price&quot;&gt;
+        ///      &lt;Param ID=&quot;1001&quot;/&gt;
+        ///    &lt; [字符串的其余部分被截断]&quot;; 的本地化字符串。
+        /// </summary>
+        internal static string DataHistoryIndicators {
+            get {
+                return ResourceManager.GetString("DataHistoryIndicators", resourceCulture);
             }
         }
         
@@ -95,17 +119,40 @@ namespace stromddin.Resources {
         ///&lt;customUI xmlns=&apos;http://schemas.microsoft.com/office/2009/07/customui&apos; loadImage=&apos;LoadImage&apos;&gt;
         ///  &lt;ribbon&gt;
         ///    &lt;tabs&gt;
-        ///      &lt;tab id=&apos;stromtab&apos; label=&apos;Strom&apos;&gt;
+        ///      &lt;tab id=&apos;stromtab&apos; label=&apos;CoinStrom&apos;&gt;
         ///        &lt;group id=&apos;group1&apos; label=&apos;My Group&apos;&gt;
         ///          &lt;button id=&apos;button1&apos; label=&apos;My Button&apos; onAction=&apos;OnButtonPressed&apos;/&gt;
         ///          &lt;button id=&apos;testBtn&apos; label=&apos;TEST&apos; onAction=&apos;OnTestButtonPressed&apos;/&gt;
         ///          &lt;button id=&apos;rtdBtn&apos; label=&apos;RTD&apos; onAction=&apos;OnRTDButtonPressed&apos;/&gt;
         ///        &lt;/group&gt;
-        ///        &lt;group  [字符串的其余部分被截断]&quot;; 的本地化字符串。
+        ///        &lt;gr [字符串的其余部分被截断]&quot;; 的本地化字符串。
         /// </summary>
         internal static string Ribbon {
             get {
                 return ResourceManager.GetString("Ribbon", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot; ?&gt; 
+        ///&lt;Root&gt;
+        ///  &lt;Params&gt;
+        ///    &lt;Param ID=&quot;1000&quot; Name=&quot;Period&quot; Key=&quot;period&quot; Value=&quot;1d&quot;&gt;
+        ///      &lt;Value Name=&quot;1 hour&quot; Value=&quot;1h&quot; /&gt;
+        ///      &lt;Value Name=&quot;4 hour&quot; Value=&quot;4h&quot; /&gt;
+        ///      &lt;Value Name=&quot;1 day&quot;  Value=&quot;1d&quot; /&gt;
+        ///    &lt;/Param&gt;
+        ///  &lt;/Params&gt;
+        ///  &lt;Indicators&gt;
+        ///    &lt;Indicator Name=&quot;Time&quot; Key=&quot;time&quot; Type=&quot;Time&quot; Help=&quot;Last event time&quot;&gt;
+        ///    &lt;/Indicator&gt;
+        ///    &lt;Indicator Name=&quot;Last Price&quot; Key=&quot;last_price&quot; Type=&quot;Number&quot; Help=&quot;Last price&quot;&gt;
+        ///    &lt;/Indicator&gt;
+        ///    &lt;Indicator Name=&quot;Last [字符串的其余部分被截断]&quot;; 的本地化字符串。
+        /// </summary>
+        internal static string RtdIndicators {
+            get {
+                return ResourceManager.GetString("RtdIndicators", resourceCulture);
             }
         }
         

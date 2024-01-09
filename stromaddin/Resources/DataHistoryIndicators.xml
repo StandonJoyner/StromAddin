@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Root>
+  <Params>
+    <Param ID="1001" Name="Period" Key="period" Value="1d">
+      <Value Name="1 day"  Value="1d" />
+      <Value Name="1 week" Value="1w" />
+      <Value Name="1 month" Value="1mo" />
+    </Param>
+  </Params>
+  <Indicators>
+    <Indicator Name="High" Key="high" Type="Number" Help="High price">
+      <Param ID="1001"/>
+    </Indicator>
+    <Indicator Name="Open" Key="open" Type="Number" Help="Open price">
+      <Param ID="1001"/>
+    </Indicator>
+    <Indicator Name="Low" Key="low" Type="Number" Help="Low price">
+      <Param ID="1001"/>
+    </Indicator>
+    <Indicator Name="Close" Key="close" Type="Number" Help="Close price">
+      <Param ID="1001"/>
+    </Indicator>
+    <Indicator Name="Volume" Key="volume" Type="Number" Help="Last quantity">
+      <Param ID="1001"/>
+    </Indicator>
+  </Indicators>
+</Root>

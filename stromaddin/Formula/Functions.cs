@@ -1,5 +1,5 @@
 ﻿using ExcelDna.Integration;
-using stromddin.Formula.DateSeries;
+using stromaddin.Formula.DateSeries;
 using System;
 using System.Data;
 using System.Data.SQLite;
@@ -20,7 +20,7 @@ namespace stromaddin.Formula
         public static object CSRTD(string symbol, string indi, string parm, string source)
         {
             symbol = symbol.Trim().ToUpper();
-            symbol = stromddin.Core.SymbolsSet.FindSymbol(symbol);
+            symbol = stromaddin.Core.SymbolsSet.FindSymbol(symbol);
             if (symbol.Length == 0)
                 return ExcelErrorUtil.ToComError(ExcelError.ExcelErrorValue);
             string[] prams = {

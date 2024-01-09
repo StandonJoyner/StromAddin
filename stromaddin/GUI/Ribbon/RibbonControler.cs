@@ -9,9 +9,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Interop;
 using stromaddin.Config;
-using stromddin.Resources;
+using stromaddin.Resources;
 using Microsoft.Office.Interop.Excel;
-using stromddin.GUI.View;
+using stromaddin.GUI.View;
 
 namespace stromaddin.GUI.Ribbon
 {

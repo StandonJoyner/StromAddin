@@ -9,9 +9,9 @@ using System.Text;
 using System.Threading.Tasks;
 using Dapper;
 using stromaddin.Core.Enums;
-using stromddin.Exchanges.Binance;
+using stromaddin.Exchanges.Binance;
 
-namespace stromddin.Core
+namespace stromaddin.Core
 {
     public class SymbolsSet
     {

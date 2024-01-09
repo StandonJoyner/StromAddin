@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34330.188
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "stromddin", "stromaddin\stromddin.csproj", "{B2B33C31-2D10-459E-BF77-AC0A3230914F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "stromaddin", "stromaddin\stromaddin.csproj", "{B2B33C31-2D10-459E-BF77-AC0A3230914F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace stromddin.GUI.Controls
+namespace stromaddin.GUI.Controls
 {
     /// <summary>
     /// UserControl1.xaml 的交互逻辑

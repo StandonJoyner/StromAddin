@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:cv="clr-namespace:stromaddin.GUI.ValueConvert"
-        xmlns:UC="clr-namespace:stromddin.GUI.Controls"
+        xmlns:UC="clr-namespace:stromaddin.GUI.Controls"
         mc:Ignorable="d"
         Title="InsertCodes" Height="450" Width="516"
         DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}">

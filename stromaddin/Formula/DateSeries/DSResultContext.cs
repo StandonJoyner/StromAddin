@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Threading;
 using Microsoft.Office.Interop.Excel;
 
-namespace stromddin.Formula.DateSeries
+namespace stromaddin.Formula.DateSeries
 {
     internal struct ResultTarget
     {

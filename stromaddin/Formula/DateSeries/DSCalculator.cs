@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using ListTable = System.Collections.Generic.List<System.Collections.Generic.KeyValuePair<string, System.Collections.Generic.List<object>>>;
 using stromaddin.Core.Excel;
 
-namespace stromddin.Formula.DateSeries
+namespace stromaddin.Formula.DateSeries
 {
     internal class DSCalculator
     {

@@ -1,4 +1,4 @@
-﻿using stromddin.Core;
+﻿using stromaddin.Core;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +12,7 @@ using stromaddin.Core.Enums;
 using ControlzEx.Standard;
 using CryptoExchange.Net.CommonObjects;
 
-namespace stromddin.Exchanges.Binance
+namespace stromaddin.Exchanges.Binance
 {
     public class ExchangeInfo
     {
