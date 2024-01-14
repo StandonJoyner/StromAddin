@@ -68,7 +68,16 @@ namespace stromaddin.Exchanges.Binance
 
         static string ToBinanceSymbol(string symbol)
         {
-            return symbol.ToLower();
+            var sympair = symbol.Split('/');
+            if (sympair.Length == 2)
+            {
+                var ret = sympair[0] + sympair[1];
+                return ret.ToLower();
+            }
+            else
+            {
+                return "";
+            }
         }
 
         static int EnsureSubscribed()

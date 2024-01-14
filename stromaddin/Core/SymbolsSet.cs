@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Data.Common;
-using System.Data.SQLite;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -52,7 +51,8 @@ namespace stromaddin.Core
             var syms = ExchangeInfo.GetAllSymbols(MarketType.SPOT, true);
             foreach (var s in syms)
             {
-                _symbols.Add(s.Name, new TickerSymbol { Symbol = s.Name, Alias = s.Name });
+                string name =  s.BaseAsset + "/" + s.QuoteAsset;
+                _symbols.Add(name, new TickerSymbol { Symbol = name, Alias = s.Name });
             }
             inited = true;
         }

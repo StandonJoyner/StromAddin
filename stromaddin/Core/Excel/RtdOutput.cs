@@ -20,6 +20,10 @@ namespace stromaddin.Core.Excel
 
         public void Output()
         {
+            _Application app = (_Application)ExcelDnaUtil.Application;
+            if (app.Workbooks.Count == 0)
+                app.Workbooks.Add();
+
             TableOutput table = new TableOutput(1, _indis.Count() + 2, 1);
             // header
             table.SetHeader(0, 0, "Name");
@@ -30,10 +34,6 @@ namespace stromaddin.Core.Excel
             table.SetHeader(0, _indis.Count() + 1, "Source");
 
             // data
-            _Application app = (_Application)ExcelDnaUtil.Application;
-            if (app.Workbooks.Count == 0)
-                app.Workbooks.Add();
-
             Range cell = app.ActiveCell;
             var nameAddr = RefCell(cell, 1, 0);
             var exAddr = RefCell(cell, 1, _indis.Count() + 1);
@@ -55,24 +55,30 @@ namespace stromaddin.Core.Excel
             sb.Append("=CSRTD(");
             sb.Append(nameAddr);
             sb.Append(",\"");
-            sb.Append(ind.Key);
-            sb.Append("\",\"");
 
-            StringBuilder psb = new StringBuilder();
-            foreach (var param in ind.Params)
-            {
-                psb.Append(param.Key);
-                psb.Append("=");
-                psb.Append(param.Value);
-                psb.Append(",");
-            }
-            var pstr = psb.ToString();
-            if (pstr.Length > 0)
-                pstr = pstr.Substring(0, pstr.Length - 1);
-            sb.Append(pstr);
+            sb.Append(MakeIndicator(ind));
             sb.Append("\",");
             sb.Append(exAddr);
             sb.Append(")");
+            return sb.ToString();
+        }
+
+        public string MakeIndicator(XMLIndicator indi)
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.Append(indi.Key);
+            if (indi.Params.Count > 0)
+            {
+                sb.Append("(");
+                for (int i = 0; i < indi.Params.Count; i++)
+                {
+                    var param = indi.Params[i];
+                    if (i > 0)
+                        sb.Append(",");
+                    sb.Append($"{param.Name}={param.Value}");
+                }
+                sb.Append(")");
+            }
             return sb.ToString();
         }
         private string RefCell(Range rng, int row, int col)

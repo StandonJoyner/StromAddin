@@ -1,10 +1,5 @@
 ﻿using ExcelDna.Integration;
 using stromaddin.Formula.DateSeries;
-using System;
-using System.Data;
-using System.Data.SQLite;
-using System.Threading.Tasks;
-using System.Windows;
 
 namespace stromaddin.Formula
 {
@@ -17,7 +12,7 @@ namespace stromaddin.Formula
         }
 
         [ExcelFunction(Category = "CoinStrom", Description = "Provides real-time market data (powered by CoinStrom)")]
-        public static object CSRTD(string symbol, string indi, string parm, string source)
+        public static object CSRTD(string symbol, string indi, string source)
         {
             symbol = symbol.Trim().ToUpper();
             symbol = stromaddin.Core.SymbolsSet.FindSymbol(symbol);
@@ -26,7 +21,6 @@ namespace stromaddin.Formula
             string[] prams = {
                 symbol,
                 indi.Trim().ToLower(),
-                parm.Trim(),
                 source.Trim().ToLower()
             };
             return XlCall.RTD(RTD.RTDServer.ProgId, null, prams);

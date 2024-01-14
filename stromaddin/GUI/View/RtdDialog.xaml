@@ -34,7 +34,7 @@
         </Grid.ColumnDefinitions>
 
         <UC:SearchBox x:Name="_symEditor" Grid.Row="0" Grid.Column="0" VerticalContentAlignment="Center"
-                         LabelText="Symbol" Text="BTCUSDT" WatermarkText="Input one symbol"/>
+                         LabelText="Symbol" Text="BTC/USDT" WatermarkText="Input one symbol"/>
         <Grid Grid.Row="1" Grid.Column="0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>

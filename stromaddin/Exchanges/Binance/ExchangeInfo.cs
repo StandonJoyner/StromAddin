@@ -9,7 +9,6 @@ using Binance.Net.Clients;
 using Binance.Net.Enums;
 using Binance.Net.Objects.Models.Spot;
 using stromaddin.Core.Enums;
-using ControlzEx.Standard;
 using CryptoExchange.Net.CommonObjects;
 
 namespace stromaddin.Exchanges.Binance

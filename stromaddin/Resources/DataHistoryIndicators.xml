@@ -1,6 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Root>
   <Params>
+    <Param ID="1000" Name="Source" Key="source" Value="Binance">
+      <Value Name="Binance" Value="Binance" />
+    </Param>
     <Param ID="1001" Name="Period" Key="period" Value="1d">
       <Value Name="1 day"  Value="1d" />
       <Value Name="1 week" Value="1w" />

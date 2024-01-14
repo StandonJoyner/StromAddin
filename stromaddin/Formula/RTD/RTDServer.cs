@@ -27,7 +27,8 @@ namespace stromaddin.Formula.RTD
                 newValues = true;
                 return "--";
             }
-            return Exchanges.Binance.MarketData.Subscribe(topic, topicInfo[0], topicInfo[1], topicInfo[2]);
+            (string indi, string param) = ParseIndicator(topicInfo[1]);
+            return Exchanges.Binance.MarketData.Subscribe(topic, topicInfo[0], indi, param);
         }
         protected override void DisconnectData(Topic topic)
         {
@@ -36,6 +37,23 @@ namespace stromaddin.Formula.RTD
         protected override int Heartbeat()
         {
             return 1;
+        }
+        private (string, string) ParseIndicator(string indi)
+        {
+            int paramStart = indi.IndexOf('(');
+            string name;
+            string strParams = "";
+            if (paramStart == -1)
+                name = indi;
+            else
+                name = indi.Substring(0, paramStart);
+            if (paramStart > 0)
+            {
+                int paramEnd = indi.IndexOf(')');
+                int len = paramEnd - paramStart - 1;
+                strParams = indi.Substring(paramStart+1, len);
+            }
+            return (name, strParams);
         }
     }
 }
