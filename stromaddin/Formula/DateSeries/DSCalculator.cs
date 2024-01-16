@@ -8,27 +8,33 @@ using System.Text;
 using System.Threading.Tasks;
 using ListTable = System.Collections.Generic.List<System.Collections.Generic.KeyValuePair<string, System.Collections.Generic.List<object>>>;
 using stromaddin.Core.Excel;
+using ExcelDna.Integration;
+using CryptoExchange.Net.CommonObjects;
+using Newtonsoft.Json.Linq;
+using System.Globalization;
 
 namespace stromaddin.Formula.DateSeries
 {
     internal class DSCalculator
     {
         private readonly string _symbols;
-        private readonly string _begDate;
-        private readonly string _endDate;
+        private readonly DateTime _begDate;
+        private readonly DateTime _endDate;
         private readonly string _indis;
         private readonly string _ext;
         private readonly string _source;
 
         TableOutput _data;
         string _err;
-        public DSCalculator(string symbols, string begDate, string endDate,
-            string indis, string ext, string source)
+        public DSCalculator(object symbols, object begDate, object endDate,
+            object indis, string ext, string source)
         {
-            _symbols = symbols;
-            _begDate = begDate;
-            _endDate = endDate;
-            _indis = indis;
+            _symbols = ConvertObjectToString(symbols);
+            _indis = ConvertObjectToString(indis);
+            _begDate = ConvertObjectToDateTime(begDate);
+            _endDate = ConvertObjectToDateTime(endDate);
+            if (_endDate == DateTime.MinValue)
+                _endDate = DateTime.Today;
             _ext = ext;
             _source = source;
         }
@@ -46,41 +52,27 @@ namespace stromaddin.Formula.DateSeries
                 _err = "Indicators is empty";
                 return Status.Failed;
             }
-            string tbeg;
-            string tend;
-            try
+            if (_begDate == DateTime.MinValue)
             {
-                tend = _endDate;
-                if (_endDate.Length == 0)
-                {
-                    tend = DateTime.Now.ToString("yyyy-MM-dd");
-                }
-                var dtBeg = DateTime.Parse(_begDate);
-                var dtEnd = DateTime.Parse(_endDate);
-                if (dtEnd < dtBeg)
-                {
-                    _err = "End date must be greater than begin date";
-                    return Status.Failed;
-                }
-                tbeg = dtBeg.ToString("yyyy-MM-dd");
-                tend = dtEnd.ToString("yyyy-MM-dd");
-            }
-            catch (Exception ex)
-            {
-                _err = ex.Message;
+                _err = "Begin date is empty";
                 return Status.Failed;
             }
+            if (_begDate > _endDate)
+            {
+                _err = "Begin date is greater than end date";
+                return Status.Failed;
+            }
+            string begDate = _begDate.ToString("yyyy-MM-dd");
+            string endDate = _endDate.ToString("yyyy-MM-dd");
             string ext = "";
-
             string url = $"https://localhost:7083/v1/BN/Klines/dateseries?" +
-                $"symbols={_symbols}&indis={_indis}&tbeg={tbeg}&tend={tend}&ext={ext}";
-
-            var client = new HttpClient();
-            client.DefaultRequestHeaders.AcceptEncoding.Add(new StringWithQualityHeaderValue("gzip"));
-            HttpResponseMessage response = await client.GetAsync(url);
-
+                $"symbols={_symbols}&indis={_indis}&tbeg={begDate}&tend={endDate}&ext={ext}";
+            
             try
             {
+                var client = new HttpClient();
+                client.DefaultRequestHeaders.AcceptEncoding.Add(new StringWithQualityHeaderValue("gzip"));
+                HttpResponseMessage response = await client.GetAsync(url);
                 response.EnsureSuccessStatusCode();
 
                 string responseBody = await response.Content.ReadAsStringAsync();
@@ -104,6 +96,85 @@ namespace stromaddin.Formula.DateSeries
         }
         public string ErrMessage {
             get => _err;
+        }
+
+        private string ConvertObjectToString(object obj)
+        {
+            if (obj is ExcelEmpty)
+            {
+                return "";
+            }
+            else if (obj is ExcelMissing)
+            {
+                return "";
+            }
+            else if (obj is ExcelReference)
+            {
+                var objRef = obj as ExcelReference;
+                var objArray = objRef.GetValue() as object[,];
+                return ArrayToString(objArray);
+            }
+            else if (obj is object[,])
+            {
+                var objArray = obj as object[,];
+                return ArrayToString(objArray);
+            }
+            else
+            {
+                return obj.ToString();
+            }
+        }
+        private string ArrayToString(object[,] array)
+        {
+            string strobj = "";
+            if (array != null)
+            {
+                int rows = array.GetLength(0);
+                int cols = array.GetLength(1);
+                if (rows * cols > 1000)
+                {
+                    return "";
+                }
+                for (int rw = 0; rw < rows; ++ rw)
+                {
+                    for (int i = 0; i < cols; i++)
+                    {
+                        var symbol = array[rw, i];
+                        strobj += $"{symbol},";
+                    }
+                    strobj = strobj.TrimEnd(',');
+                }
+            }
+            return strobj;
+        }
+        private DateTime ConvertObjectToDateTime(object obj)
+        {
+            if (obj is DateTime)
+            {
+                return (DateTime)obj;
+            }
+            else if (obj is string)
+            {
+                string[] formats = { "dd/MM/yyyy", "yyyy/MM/dd", "dd-MM-yyyy", "yyyy-MM-dd" };
+                string dateString = obj as string;
+
+                DateTime dateValue;
+                if (DateTime.TryParseExact(dateString, formats,
+                                           CultureInfo.InvariantCulture,
+                                           DateTimeStyles.None,
+                                           out dateValue))
+                {
+                    return dateValue;
+                }
+                else
+                {
+                    return DateTime.MinValue;
+                }
+            }
+            else
+            {
+                return DateTime.MinValue;
+            }
         }
     }
 

@@ -1,5 +1,6 @@
 ﻿using ExcelDna.Integration;
 using stromaddin.Formula.DateSeries;
+using System;
 
 namespace stromaddin.Formula
 {
@@ -27,15 +28,15 @@ namespace stromaddin.Formula
         }
 
         [ExcelFunction(Category = "CoinStrom", Description = "Provides data history (powered by CoinStrom)")]
-        public static object CSDH(string symbols, string begDate, string endDate,
-            string indis, string ext, string source)
+        public static object CSDH(object symbols, object begDate, object endDate,
+            object indis, string ext, string source)
         {
             ExcelReference caller = XlCall.Excel(XlCall.xlfCaller) as ExcelReference;
             string fmu = XlCall.Excel(XlCall.xlfFormulatext, caller) as string;
             if (fmu == null)
                 return ExcelErrorUtil.ToComError(ExcelError.ExcelErrorValue);
             DSCalculator calc = new DSCalculator(symbols, begDate, endDate, indis, ext, source);
-            return ExcelAsyncUtil.Observe("CSDH", new object[] { caller, fmu },
+            return ExcelAsyncUtil.Observe("CSDH", new object[] { caller, calc.Key },
                 ()=> new DSObservable(caller, fmu, calc));
         }
         //static SQLiteConnection _connection;
