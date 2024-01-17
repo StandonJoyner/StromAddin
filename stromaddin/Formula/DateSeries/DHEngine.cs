@@ -19,10 +19,10 @@ namespace stromaddin.Formula.DateSeries
 
     internal class DSObservable : IExcelObservable
     {
-        DSCalculator _calc;
+        DHCalculator _calc;
         string _fmu;
         ExcelReference _caller;
-        public DSObservable(ExcelReference caller, string fmu, DSCalculator calc)
+        public DSObservable(ExcelReference caller, string fmu, DHCalculator calc)
         {
             _caller = caller;
             _fmu = fmu;
@@ -31,7 +31,7 @@ namespace stromaddin.Formula.DateSeries
         public IDisposable Subscribe(IExcelObserver observer)
         {
             var target = new ResultTarget(_caller, _fmu, observer);
-            DSEngine.Instance.Calculate(_calc, target);
+            DHEngine.Instance.Calculate(_calc, target);
             return DummyDisposable.Instance;
         }
     }
@@ -47,14 +47,14 @@ namespace stromaddin.Formula.DateSeries
         }
     }
 
-    internal class DSEngine
+    internal class DHEngine
     {
         // Add a BlockingCollection to queue tasks
         private BlockingCollection<Task> _taskQueue = new BlockingCollection<Task>();
 
-        Dictionary<string, DSResultContext> _results = new Dictionary<string, DSResultContext>();
-        public static DSEngine Instance = new DSEngine();
-        private DSEngine()
+        Dictionary<string, DHResultContext> _results = new Dictionary<string, DHResultContext>();
+        public static DHEngine Instance = new DHEngine();
+        private DHEngine()
         {
             // Start a dedicated thread to process tasks in the queue
             new Thread(() =>
@@ -67,7 +67,7 @@ namespace stromaddin.Formula.DateSeries
             { IsBackground = true }.Start();
         }
 
-        public void Calculate(DSCalculator calc, ResultTarget target)
+        public void Calculate(DHCalculator calc, ResultTarget target)
         {
             var status = GetStatus(calc.Key);
             if (status == Status.NotStarted)
@@ -86,9 +86,9 @@ namespace stromaddin.Formula.DateSeries
             }
         }
 
-        public void NewCalculate(DSCalculator calc, ResultTarget target)
+        public void NewCalculate(DHCalculator calc, ResultTarget target)
         {
-            var rc = new DSResultContext();
+            var rc = new DHResultContext();
             rc.AddTarget(target.Caller, target);
 
             var fmuKey = calc.Key;
@@ -102,34 +102,34 @@ namespace stromaddin.Formula.DateSeries
             _taskQueue.Add(new Task(async () => await ImplCalculate(calc)));
         }
 
-        public void FillResultTo(DSCalculator calc, ResultTarget target)
+        public void FillResultTo(DHCalculator calc, ResultTarget target)
         {
             var fmuKey = calc.Key;
             lock (_results)
             {
-                _results.TryGetValue(fmuKey, out DSResultContext value);
+                _results.TryGetValue(fmuKey, out DHResultContext value);
                 target.Observer.OnNext("Waiting...");
                 value.AddTarget(target.Caller, target);
             }
         }
 
-        public void WaitingCalculate(DSCalculator calc, ResultTarget target)
+        public void WaitingCalculate(DHCalculator calc, ResultTarget target)
         {
             var fmuKey = calc.Key;
             lock (_results)
             {
-                _results.TryGetValue(fmuKey, out DSResultContext value);
+                _results.TryGetValue(fmuKey, out DHResultContext value);
                 target.Observer.OnNext("Waiting...");
                 value.AddTarget(target.Caller, target);
             }
         }
 
-        public void Recalculate(DSCalculator calc, ResultTarget target)
+        public void Recalculate(DHCalculator calc, ResultTarget target)
         {
             var fmuKey = calc.Key;
             lock (_results)
             {
-                _results.TryGetValue(fmuKey, out DSResultContext value);
+                _results.TryGetValue(fmuKey, out DHResultContext value);
                 target.Observer.OnNext("Waiting...");
                 value.AddTarget(target.Caller, target);
             }
@@ -137,13 +137,13 @@ namespace stromaddin.Formula.DateSeries
             _taskQueue.Add(new Task(async () => await ImplCalculate(calc)));
         }
 
-        public string RetryCalculate(DSCalculator calc, ResultTarget target)
+        public string RetryCalculate(DHCalculator calc, ResultTarget target)
         {
 
             return "";
         }
 
-        private async Task ImplCalculate(DSCalculator calc)
+        private async Task ImplCalculate(DHCalculator calc)
         {
             var fmuKey = calc.Key;
             var status = await calc.Calculate();
@@ -152,7 +152,7 @@ namespace stromaddin.Formula.DateSeries
             {
                 lock (_results)
                 {
-                    _results.TryGetValue(fmuKey, out DSResultContext value);
+                    _results.TryGetValue(fmuKey, out DHResultContext value);
                     if (status == Status.Completed)
                     {
                         var dt = calc.ResultData;
@@ -170,7 +170,7 @@ namespace stromaddin.Formula.DateSeries
         {
             lock (_results)
             {
-                _results.TryGetValue(context, out DSResultContext result);
+                _results.TryGetValue(context, out DHResultContext result);
                 if (result == null)
                     return Status.NotStarted;
                 else

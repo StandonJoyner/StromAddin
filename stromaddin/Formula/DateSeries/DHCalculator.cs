@@ -15,7 +15,7 @@ using System.Globalization;
 
 namespace stromaddin.Formula.DateSeries
 {
-    internal class DSCalculator
+    internal class DHCalculator
     {
         private readonly string _symbols;
         private readonly DateTime _begDate;
@@ -26,7 +26,7 @@ namespace stromaddin.Formula.DateSeries
 
         TableOutput _data;
         string _err;
-        public DSCalculator(object symbols, object begDate, object endDate,
+        public DHCalculator(object symbols, object begDate, object endDate,
             object indis, string ext, string source)
         {
             _symbols = ConvertObjectToString(symbols);
@@ -81,7 +81,7 @@ namespace stromaddin.Formula.DateSeries
                 if (result.ContainsKey("data"))
                 {
                     var data = JsonConvert.DeserializeObject<List<KeyValuePair<string, ListTable>>>(result["data"].ToString());
-                    _data = Converter.ConvertListTable(data[0].Value, true);
+                    _data = Converter.ConvertByFirstDim(data);
                 }
             }
             catch (Exception ex)

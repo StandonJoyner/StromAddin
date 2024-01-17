@@ -80,7 +80,8 @@ namespace stromaddin.Formula.DateSeries
 
             TableOutput tbl = new TableOutput(openTimes.Count, cols, 2);
             #region set_header
-            tbl.SetHeader(1, 0, "open_time");
+            tbl.SetHeader(1, 0, "date");
+            tbl.SetFormat(0, NumberFormat.GetDateFormat());
             int tbCol = 0;
             for (int tbi = 0; tbi < dtt.Count; ++tbi)
             {
@@ -138,7 +139,8 @@ namespace stromaddin.Formula.DateSeries
 
             TableOutput tbl = new TableOutput(openTimes.Count, cols, 2);
             #region set_header
-            tbl.SetHeader(1, 0, "open_time");
+            tbl.SetHeader(1, 0, "date");
+            tbl.SetFormat(0, NumberFormat.GetDateFormat());
             for (int tbi = 0; tbi < dtt.Count; ++tbi)
             {
                 var kvp = dtt[tbi];

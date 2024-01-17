@@ -20,14 +20,14 @@ namespace stromaddin.Formula.DateSeries
         }
     }
 
-    internal class DSResultContext
+    internal class DHResultContext
     {
         Status _status = Status.Running;
         DateTime _complateTm;
         Dictionary<ExcelReference, ResultTarget> _targets = new Dictionary<ExcelReference, ResultTarget>();
         TableOutput _data;
 
-        public DSResultContext()
+        public DHResultContext()
         {
         }
         public Status GetStatus()
@@ -108,7 +108,11 @@ namespace stromaddin.Formula.DateSeries
         {
             lock (_targets)
             {
-                _targets.Add(caller, target);
+                if (_targets.ContainsKey(caller))
+                    _targets[caller] = target;
+                else
+                    _targets.Add(caller, target);
+
                 if (GetStatus() == Status.Completed)
                     FillOne(caller);
             }
